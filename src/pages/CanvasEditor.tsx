@@ -29,7 +29,7 @@ const CanvasEditor = ({ canvas, onBack, onNameChange }: CanvasEditorProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 px-4 py-6 text-slate-900 sm:px-6">
       <div className="mx-auto flex max-w-6xl flex-col gap-6">
-        <header className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white/90 px-4 py-3 shadow">
+        <header className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200/80 bg-white/90 px-4 py-3 shadow">
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -40,6 +40,16 @@ const CanvasEditor = ({ canvas, onBack, onNameChange }: CanvasEditorProps) => {
             </button>
             <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Canvas Studio</p>
           </div>
+          <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center">
+            <label className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">画布名称</label>
+            <input
+              type="text"
+              value={canvas.name}
+              onChange={event => onNameChange(event.target.value)}
+              className="w-full flex-1 rounded-xl border border-slate-300 bg-slate-50/70 px-4 py-2 text-sm font-medium text-slate-900 outline-none ring-0 transition focus:border-slate-900"
+              placeholder="输入画布名称"
+            />
+          </div>
           <button
             type="button"
             onClick={handleExport}
@@ -48,17 +58,6 @@ const CanvasEditor = ({ canvas, onBack, onNameChange }: CanvasEditorProps) => {
             导出 PDF
           </button>
         </header>
-
-        <section className="rounded-3xl border border-slate-200/70 bg-white/90 p-6 shadow-xl shadow-slate-900/5">
-          <label className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">画布名称</label>
-          <input
-            type="text"
-            value={canvas.name}
-            onChange={event => onNameChange(event.target.value)}
-            className="mt-3 w-full rounded-2xl border border-slate-300 bg-slate-50/70 px-4 py-3 text-base font-medium text-slate-900 outline-none ring-0 transition focus:border-slate-900"
-            placeholder="输入画布名称"
-          />
-        </section>
 
         <section className="rounded-3xl border border-slate-200/70 bg-gradient-to-b from-white to-slate-50/50 p-6 shadow-xl shadow-slate-900/5">
           <div className="text-sm font-semibold uppercase tracking-[0.4em] text-slate-400">A4 预览</div>

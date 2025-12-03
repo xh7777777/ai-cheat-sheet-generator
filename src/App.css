@@ -183,7 +183,6 @@ button.primary:hover:not(:disabled) {
 
 .a4-canvas {
   aspect-ratio: 210 / 297;
-  border-radius: 20px;
   border: 1px solid rgba(15, 23, 42, 0.08);
   box-shadow: 0 25px 80px rgba(15, 23, 42, 0.15);
   padding: 2rem;

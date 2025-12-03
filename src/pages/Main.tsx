@@ -34,7 +34,7 @@ const Main = ({ canvases, onCreate, onSelect }: MainPageProps) => {
                 key={canvas.id}
                 type="button"
                 onClick={() => onSelect(canvas.id)}
-                className="group flex min-h-[140px] flex-1 basis-64 flex-col rounded-2xl border border-slate-200/80 bg-gradient-to-br from-white to-slate-50/70 p-4 text-left shadow-md shadow-slate-900/5 transition hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg"
+                className="group flex min-h-[140px] flex-1 basis-64 flex-col rounded-sm border border-slate-200/80 bg-gradient-to-br from-white to-slate-50/70 p-4 text-left shadow-md shadow-slate-900/5 transition hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg"
               >
                 <p className="text-lg font-semibold text-slate-900 group-hover:text-slate-800">{canvas.name}</p>
                 <p className="mt-3 text-xs uppercase tracking-wide text-slate-500">
@@ -46,10 +46,12 @@ const Main = ({ canvases, onCreate, onSelect }: MainPageProps) => {
             <button
               type="button"
               onClick={onCreate}
-              className="flex min-h-[140px] flex-1 basis-64 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white/70 text-slate-500 transition hover:border-slate-400 hover:text-slate-700"
+              className="group flex min-h-[140px] flex-1 basis-64 flex-col items-center justify-center rounded-sm border border-slate-200/80 bg-gradient-to-br from-white to-slate-50/70 p-4 text-center text-slate-500 shadow-md shadow-slate-900/5 transition hover:-translate-y-1 hover:border-slate-300 hover:text-slate-700"
             >
-              <span className="text-4xl font-light">+</span>
-              <span className="mt-1 text-sm font-semibold">新建画布</span>
+              <span className="flex h-16 w-16 items-center justify-center rounded-full border border-dashed border-slate-400 text-4xl font-light text-slate-600 group-hover:border-slate-500 group-hover:text-slate-800">
+                +
+              </span>
+              <span className="mt-3 text-sm font-semibold text-slate-600 group-hover:text-slate-800">新建画布</span>
             </button>
           </div>
         </section>
