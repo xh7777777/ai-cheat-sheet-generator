@@ -1,16 +1,22 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-The Vite workspace is flat: `src/` holds all React components, hooks, and styles, while static files that must ship untouched live in `public/` (e.g., `public/vite.svg`). `src/main.tsx` bootstraps the React tree and should be the only place that calls `createRoot`. Feature code should sit in dedicated folders in `src/` (`src/features/prompt-editor/PromptEditor.tsx`), and shared icons or JSON belong under `src/assets/`. Entry HTML is `index.html`, and build behaviour is defined by `vite.config.ts` with TypeScript options in `tsconfig.*.json`.
+The workspace is flat: every React component, hook, and style lives in `src/`. Organize features in folders such as `src/features/prompt-editor/PromptEditor.tsx`, stash shared media or JSON under `src/assets/`, and leave `src/main.tsx` as the only place that calls `createRoot`. Tests live in `src/__tests__/` or beside the component they cover, static assets stay in `public/`, builds write to `dist/`, and compiler/runtime knobs sit in `tsconfig*.json` plus `vite.config.ts`.
 
 ## Build, Test, and Development Commands
-Install dependencies once with `npm install`. Use `npm run dev` for hot-reload development at `http://localhost:5173`. `npm run build` runs `tsc -b` and then `vite build`, producing `dist/`; run it before opening a pull request. `npm run preview` serves the built assets locally to mirror production. Lint staged files with `npm run lint` so ESLint catches TypeScript or hooks rule violations before CI.
+- `npm run dev` — launch Vite with hot reload on http://localhost:5173.
+- `npm run build` — execute `tsc -b` then `vite build`, producing `dist/` assets.
+- `npm run preview` — serve the built bundle locally for production parity.
+- `npm run lint` — run ESLint with the React Hooks and TypeScript configs.
 
 ## Coding Style & Naming Conventions
-Write TypeScript first, with 2-space indentation and semicolon-free formatting to match existing files. Components and context providers use PascalCase filenames (`PromptSidebar.tsx`), hooks and helpers stay camelCase (`usePromptSync.ts`). Keep styles colocated (`App.css`, `index.css`) and prefer CSS custom properties over inline styles. Run ESLint before pushes and extend rules in `eslint.config.js` instead of scattering `eslint-disable` comments. Keep components pure and colocate one-off helper types with their component.
+Write TypeScript-first React 19 components with 2-space indentation, no trailing semicolons, and props typed near their usage. Components and contexts stay PascalCase (`PromptSidebar.tsx`), hooks/utilities use camelCase (`usePromptSync.ts`), and features should be decomposed so reusable logic lives in hooks while UI fragments become focused subcomponents. Styling relies on Tailwind CSS 4; keep utility classes in JSX, fall back to local CSS files only when necessary, and stick to the light black/white/gray palette with subtle shadow borders for elevation. When introducing new tokens, update the Tailwind config instead of hardcoding colors, and extend shared lint rules via `eslint.config.js` rather than scattering overrides.
 
 ## Testing Guidelines
-No automated tests exist yet, but new work should include Vitest + React Testing Library specs. Create `src/__tests__/<Feature>.test.tsx` or colocated `Component.test.tsx` files that mirror component names. When adding a test script, ensure hooks and UI states are both covered and document the command in `package.json`. Until Vitest is wired, perform manual QA through `npm run dev` and describe the exercised flows in the pull request.
+Future work should add Vitest + React Testing Library specs mirroring component names (`PromptSidebar.test.tsx`) or living under `src/__tests__/<Feature>.test.tsx`, covering hook logic plus the primary UI states. Until a `test` script exists, run manual QA with `npm run dev` and document the exercised scenarios inside each pull request.
 
 ## Commit & Pull Request Guidelines
-The repo currently lacks history, so adopt Conventional Commits (`feat: add generator presets`, `fix: debounce sheet export`). Keep subject lines under 72 characters and write present-tense bodies describing rationale and testing. Every pull request needs a short summary, screenshots or clips for UI changes, affected routes, linked issues, and a checklist of commands run (dev, build, lint, future tests). Request review after CI is green and avoid force-pushing once review starts unless coordinated with the reviewer.
+Adopt Conventional Commits (`feat: add generator presets`, `fix: debounce sheet export`) with subjects under 72 characters and present-tense bodies describing rationale plus commands run (`dev`, `build`, `lint`). Pull requests need a summary, linked issues, affected routes, visual evidence for UI changes, and a verification checklist, and they should ship only after CI passes; coordinate before force-pushing after review.
+
+## Security & Configuration Tips
+Store API keys or third-party tokens in `.env.local` with `VITE_` prefixes, mirror them in `.env.example`, and never commit private PDFs or secrets. Gate `jspdf` or `html2canvas` downloads behind explicit user actions and note new permissions inside the pull request template.
